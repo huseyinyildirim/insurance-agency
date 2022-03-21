@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Verilen Teklifler";
+}
+
+@model OfferQueryInput
+
+@{
+    List<InsuranceAgency.Business.Dtos.OfferDto> offers = ViewData["Offers"] as List<InsuranceAgency.Business.Dtos.OfferDto>;
+}
+
+<div class="card">
+    <div class="card-header">
+        Teklif Sorgulama
+    </div>
+    <div class="card-body">
+        <form asp-controller="Offer" asp-action="Index" method="post">
+            <div class="row">
+                <label for="inputTCId" class="col-sm-2 col-form-label" asp-for="TCId"></label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" asp-for="TCId">
+                    <span class="text-danger" asp-validation-for="TCId"></span>
+                </div>
+                <div class="col-sm-3">
+                    <button type="submit" class="btn btn-primary btn-block">ARA</button>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+@if (offers != null)
+{
+    <div class="card mt-3">
+        <div class="card-header">
+            Sigorta Şirketleri Tarafından Verilen Teklifler
+        </div>
+        <div class="card-body">
+            @if (offers.Any())
+            {
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Sigorta Firması</th>
+                            <th>Teklif Açıklaması</th>
+                            <th>Teklif Tutarı</th>
+                            <th>Plaka</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var offer in offers)
+                        {
+                            <tr>
+                                <td><img class="img-fluid" src="@offer.Logo" alt="@offer.CompanyName" /></td>
+                                <td>@offer.Description</td>
+                                <td>@offer.Amount TL</td>
+                                <td>@offer.Plate</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-info mb-0" role="alert">
+                    Bu kimlik numarasına ait verilmiş teklif yoktur.
+                </div>
+            }
+
+        </div>
+    </div>
+}

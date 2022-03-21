@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InsuranceAgency.Shared\InsuranceAgency.Shared.csproj" />
+    <ProjectReference Include="..\InsuranceAgency.Data\InsuranceAgency.Data.csproj" />
+    <ProjectReference Include="..\InsuranceAgency.Provider\InsuranceAgency.Provider.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="FluentValidation.AspNetCore" />
+    <None Remove="Services\" />
+    <None Remove="Dtos\" />
+    <None Remove="Validations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Dtos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+</Project>

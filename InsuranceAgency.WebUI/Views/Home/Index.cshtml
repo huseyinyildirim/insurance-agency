@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "Teklif Talep Formu";
+}
+
+@model QuotationCreateInput
+
+@{
+    List<InsuranceAgency.Business.Dtos.InsuranceProviderDto> insuranceProviders = ViewData["InsuranceProviders"] as List<InsuranceAgency.Business.Dtos.InsuranceProviderDto>;
+    List<InsuranceAgency.WebUI.Models.OfferResult> offers = ViewData["Offers"] as List<InsuranceAgency.WebUI.Models.OfferResult>;
+}
+
+<div class="card">
+    <div class="card-body">
+        <form asp-controller="Home" asp-action="Index" method="post">
+            <div class="row mb-3">
+                <label for="inputPlate" class="col-sm-3 col-form-label" asp-for="Plate"></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" asp-for="Plate">
+                    <span class="text-danger" asp-validation-for="Plate"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputTCId" class="col-sm-3 col-form-label" asp-for="TCId"></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" asp-for="TCId">
+                    <span class="text-danger" asp-validation-for="TCId"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputLicenseSerialCode" class="col-sm-3 col-form-label" asp-for="LicenseSerialCode"></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" asp-for="LicenseSerialCode">
+                    <span class="text-danger" asp-validation-for="LicenseSerialCode"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputLicenseSerialNo" class="col-sm-3 col-form-label" asp-for="LicenseSerialNo"></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" asp-for="LicenseSerialNo">
+                    <span class="text-danger" asp-validation-for="LicenseSerialNo"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Teklif Al</button>
+        </form>
+    </div>
+</div>
+
+@if (offers != null)
+{
+    if (offers.Any())
+    {
+        <div class="card mt-3">
+            <div class="card-header">
+                Sigorta Şirketlerinin Verdiği Teklifler
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Sigorta Firması</th>
+                                <th>Teklif Açıklaması</th>
+                                <th>Teklif Tutarı</th>
+                                <th>Plaka</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var offer in offers)
+                            {
+                                <tr>
+                                    <td><img class="img-fluid" src="@offer.Logo" alt="@offer.CompanyName" /></td>
+                                    <td>@offer.Description</td>
+                                    <td>@offer.Amount TL</td>
+                                    <td>@offer.Plate</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<div class="card mt-3">
+    <div class="card-header">
+        Sigorta Şirketleri
+    </div>
+    <div class="card-body">
+        <div class="row">
+            @if (insuranceProviders != null)
+            {
+                if (insuranceProviders.Any())
+                {
+                    foreach (var insuranceProvider in insuranceProviders)
+                    {
+                        <div class="col-3 text-center mb-3"><img class="img-fluid" src="@insuranceProvider.Logo" alt="@insuranceProvider.CompanyName" /></div>
+
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>

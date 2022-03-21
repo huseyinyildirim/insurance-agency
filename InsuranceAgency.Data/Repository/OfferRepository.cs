@@ -40,7 +40,7 @@ namespace InsuranceAgency.Data.Repository
             var quotationIds = quotationRepositoryResult.Select(x => x.Id).ToArray();
             var plates = quotationRepositoryResult.Select(x => x.Plate).ToArray();
 
-            return FindByCondition(x => quotationIds.Contains(x.QuotationId) && plates.Contains(x.Plate)).ToList();
+            return FindByCondition(x => quotationIds.Contains(x.QuotationId) || plates.Contains(x.Plate)).ToList();
         }
 
         public void UpdateOffer(Offer offer)
